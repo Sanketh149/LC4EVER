@@ -21,13 +21,13 @@ class Solution {
         {
             int steps = q.front().first, node = q.front().second;
             q.pop();
-            if(node == end) return steps;
             for(auto adj:nums)
             {
                 int curr = (node*adj)%mod;
                 if(dist[curr]>steps+1)
                 {
                     dist[curr] = steps+1;
+                    if(curr == end) return dist[curr];
                     q.push({dist[curr], curr});
                 }
             }
