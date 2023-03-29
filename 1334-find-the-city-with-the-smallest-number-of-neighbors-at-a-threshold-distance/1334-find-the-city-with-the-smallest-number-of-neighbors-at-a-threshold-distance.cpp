@@ -1,34 +1,50 @@
 class Solution {
 public:
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        vector<vector<int>>adj(n, vector<int>(n, 1e9));
+        vector<pair<int,int>> adj[n];
         for(auto it:edges)
         {
-            adj[it[0]][it[1]] = it[2];
-            adj[it[1]][it[0]] = it[2];
+            adj[it[0]].push_back({it[1],it[2]});
+            adj[it[1]].push_back({it[0],it[2]});
         }
-        for(int i = 0;i<n;i++)  
-            adj[i][i] = 0;
-        vector<vector<int>>dist(adj);
-        for(int k = 0;k<n;k++)
-            for(int i = 0;i<n;i++)
-                for(int j = 0;j<n;j++)
-                    dist[i][j] = min(dist[i][j], dist[i][k]+dist[k][j]);
-        vector<int>res(n, 0);
-        for(int i = 0;i<n;i++)
-            for(int j = 0;j<n;j++)
-                if(dist[j][i] <= distanceThreshold)
-                    res[i]++;
-        int mini = 1e9;
-        int idx = -1;
-        for(int i = 0;i<n;i++)
+        
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+        
+        int cityno,mincitycount=1e9;
+        
+        for(int i=0;i<n;i++)
         {
-            if(mini >= res[i])
+            vector<int> dist(n,1e9);
+            pq.push({0,i});
+            dist[i]=0;
+            while(!pq.empty())
             {
-                mini = res[i];
-                idx = i;
+                int distance=pq.top().first;
+                int node=pq.top().second;
+                pq.pop();
+                for(auto it:adj[node])
+                {
+                    int adjNode=it.first;
+                    int adjWeight=it.second;
+                    if(distance + adjWeight < dist[adjNode])
+                    {
+                        dist[adjNode] = distance + adjWeight;
+                        pq.push({dist[adjNode],adjNode});
+                    }
+                }
+            }
+            int count=0;
+            for(int j=0;j<n;j++)
+            {
+                if(dist[j]<=distanceThreshold)
+                    count++;
+            }
+            if(count<=mincitycount)
+            {
+                mincitycount=count;
+                cityno = i;
             }
         }
-        return idx;
+        return cityno;
     }
 };
