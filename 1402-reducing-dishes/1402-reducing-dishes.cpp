@@ -9,9 +9,15 @@ public:
         return dp[i][prod] = max(take, notTake);
     }
     int maxSatisfaction(vector<int>& satisfaction) {
-        sort(satisfaction.begin(), satisfaction.end());
+        sort(satisfaction.begin(), satisfaction.end(), greater<int>());
         int n = satisfaction.size();
-        vector<vector<int>>dp(n, vector<int> (n+1, -1));
-        return dfs(0, 1, satisfaction, dp);
+        int now = 0, res = 0;
+        for(auto i:satisfaction)
+        {
+            now += i;
+            if(now < 0) return res;
+            res += now;
+        }
+        return res;
     }
 };
