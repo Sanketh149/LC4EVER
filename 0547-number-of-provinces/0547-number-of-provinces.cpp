@@ -58,7 +58,7 @@ public:
         {
             for(int j = 0;j<n;j++)
             {
-                if(i != j and isConnected[i][j] == 1)
+                if(isConnected[i][j] == 1)
                 {
                     dsu.unionByRank(i, j);
                 }
