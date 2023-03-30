@@ -66,7 +66,6 @@ public:
         {
             if(i == dsu.findUPar(i)) comp++;
         }
-        if(count >= comp-1) return comp - 1;
-        return -1;
+        return comp - 1; 
     }
 };
