@@ -3,6 +3,58 @@
 using namespace std;
 
 // } Driver Code Ends
+
+
+class DisjointSet {
+    vector<int> rank, parent, size; 
+public: 
+    DisjointSet(int n) {
+        rank.resize(n+1, 0); 
+        parent.resize(n+1);
+        size.resize(n+1); 
+        for(int i = 0;i<=n;i++) {
+            parent[i] = i; 
+            size[i] = 1; 
+        }
+    }
+
+    int findUPar(int node) {
+        if(node == parent[node])
+            return node; 
+        return parent[node] = findUPar(parent[node]); 
+    }
+
+    void unionByRank(int u, int v) {
+        int ulp_u = findUPar(u); 
+        int ulp_v = findUPar(v); 
+        if(ulp_u == ulp_v) return; 
+        if(rank[ulp_u] < rank[ulp_v]) {
+            parent[ulp_u] = ulp_v; 
+        }
+        else if(rank[ulp_v] < rank[ulp_u]) {
+            parent[ulp_v] = ulp_u; 
+        }
+        else {
+            parent[ulp_v] = ulp_u; 
+            rank[ulp_u]++; 
+        }
+    }
+
+    void unionBySize(int u, int v) {
+        int ulp_u = findUPar(u); 
+        int ulp_v = findUPar(v); 
+        if(ulp_u == ulp_v) return; 
+        if(size[ulp_u] < size[ulp_v]) {
+            parent[ulp_u] = ulp_v; 
+            size[ulp_v] += size[ulp_u]; 
+        }
+        else {
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v]; 
+        }
+    }
+}; 
+
 class Solution
 {
 	public:
@@ -10,29 +62,36 @@ class Solution
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        pq.push({0,0});
-        int mst = 0;
-        vector<int>vis(V, 0);
-        while(pq.size())
+        vector<pair<int,pair<int,int>>>edges;
+        for(int i = 0;i<V;i++)
         {
-            int wt = pq.top().first, node = pq.top().second;
-            pq.pop();
-            if(vis[node] == 1) continue;
-            vis[node] = 1;
-            mst += wt;
-            for(auto it:adj[node])
+            for(auto it:adj[i])
             {
-                int adjNode = it[0], eWt = it[1];
-                if(!vis[adjNode])
-                {
-                    pq.push({eWt, adjNode});
-                }
+                int node = i;
+                int adjNode = it[0], wt = it[1];
+                edges.push_back({wt, {node, adjNode}});
+            }
+        }
+        sort(edges.begin(), edges.end());
+        DisjointSet dsu(V);
+        int mst = 0;
+        for(auto it:edges)
+        {
+            int wt = it.first, u = it.second.first, v = it.second.second;
+            int ult_u = dsu.findUPar(u), ult_v = dsu.findUPar(v);
+            if(ult_u != ult_v)
+            {
+                dsu.unionByRank(u, v);
+                mst += wt;
             }
         }
         return mst;
     }
 };
+
+
+
+
 
 //{ Driver Code Starts.
 
