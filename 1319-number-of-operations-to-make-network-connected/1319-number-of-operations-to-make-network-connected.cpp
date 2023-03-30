@@ -52,7 +52,7 @@ class Solution {
 public:
     int makeConnected(int V, vector<vector<int>>& connections) {
         int n = connections.size();
-        if(n < V - 1) return -1;
+        if(n < V - 1) return -1; // To form MST graph should have at least V-1 edges
         DisjointSet dsu(V);
         int count = 0;
         for(int i = 0;i<n;i++)
@@ -66,6 +66,6 @@ public:
         {
             if(i == dsu.findUPar(i)) comp++;
         }
-        return comp - 1; 
+        return comp - 1; // N components to connect need N-1 Edges
     }
 };
