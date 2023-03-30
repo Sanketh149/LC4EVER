@@ -81,7 +81,7 @@ class Solution
             int ult_u = dsu.findUPar(u), ult_v = dsu.findUPar(v);
             if(ult_u != ult_v)
             {
-                dsu.unionByRank(u, v);
+                dsu.unionBySize(u, v);
                 mst += wt;
             }
         }
