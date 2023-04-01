@@ -104,8 +104,8 @@ public:
                     maxArea = max(maxArea, area+1);
                 }
             }
-        }
-        for(int cellNo = 0;cellNo<n*n;cellNo++) 
+        } 
+        for(int cellNo = 0;cellNo<n*n;cellNo++)  //for matrix with all 1's
             maxArea = max(maxArea, dsu.size[dsu.findUPar(cellNo)]);
         return maxArea;
     }
