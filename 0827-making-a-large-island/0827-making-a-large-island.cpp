@@ -92,10 +92,7 @@ public:
                         if(isValid(nr, nc, n) and grid[nr][nc] == 1)
                         {
                             int adjNode = nr*n + nc;
-                            if(dsu.findUPar(currNode) != dsu.findUPar(adjNode))
-                            {
                                 s.insert(dsu.findUPar(adjNode));
-                            }
                         }
                     }
                     int area = 0;
