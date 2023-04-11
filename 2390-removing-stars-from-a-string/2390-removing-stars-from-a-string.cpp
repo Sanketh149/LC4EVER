@@ -4,9 +4,7 @@ public:
         stack<char>st;
         for(auto it:s)
         {
-            if(it == '*' and st.size() == 0)
-                continue;
-            else if(it == '*')
+            if(it == '*' and st.size())
                 st.pop();
             else st.push(it);
         }
