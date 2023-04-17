@@ -11,10 +11,10 @@ class Solution{
         // Complete the function
         map<int,int>mp;
         int sum = 0, maxi = 0;
+        mp[0] = -1;
         for(int i = 0;i<N;i++)
         {
             sum += a[i];
-            if(sum == k) maxi = max(maxi, i+1);
             int rem = sum - k;
             if(mp.find(rem) != mp.end()) maxi = max(maxi, i - mp[rem]);
             if(mp.find(sum) == mp.end()) mp[sum] = i;
