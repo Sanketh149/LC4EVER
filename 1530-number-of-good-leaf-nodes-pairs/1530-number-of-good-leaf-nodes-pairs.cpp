@@ -1,54 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
-    unordered_map<TreeNode*, vector<TreeNode*>>mp;
-    vector<TreeNode*>leaves;
-    int ans = 0;
-    
-    void storeLeaves(TreeNode* root) {
-        if (!root) return;
-        storeLeaves(root->left);
-        if (!root->left && !root->right)
-            leaves.push_back(root);
-        if (root->left) {
-            mp[root].push_back(root->left);
-            mp[root->left].push_back(root);
-        }
-        if (root->right) {
-            mp[root].push_back(root->right);
-            mp[root->right].push_back(root);
-        }
-        storeLeaves(root->right);
-    }
-    
-    void bfs(TreeNode* v, int distance) {    
-        queue<TreeNode*>q;
-        q.push(v);
-        int dist = 0;
-        
-        unordered_map<TreeNode*, bool>visited;
-        
-        while (!q.empty()) {
-            int size = q.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode* node = q.front();
-                q.pop();
-                if (node != v && !node->left && !node->right)
-                    ans++;
-                visited[node] = true;
-                for (auto j = 0; j < mp[node].size(); j++)
-                    if(!visited[mp[node][j]])
-                        q.push(mp[node][j]);
-            }
-            dist++;
-            if (dist > distance) return;
-        }
-    }
-    
 public:
+    int pairs = 0;
+    vector<int> dfs(TreeNode *root, int distance)
+    {
+        if(!root) return {};
+        auto left = dfs(root->left, distance);
+        auto right = dfs(root->right, distance);
+        vector<int>res;
+        if(left.size() == 0 and right.size() == 0) // leaf node
+        {
+            res.push_back(1); //returning that it is at dist 1 from root
+            return res;
+        }
+        for(int i = 0;i<left.size();i++)
+        {
+            for(int j = 0;j<right.size();j++)
+            {
+                if(left[i]+right[j] <= distance) pairs++;
+            }
+        }
+        for(auto it:left) res.push_back(it+1); //increase 1 and send to its root
+        for(auto it:right) res.push_back(it+1);
+        return res;
+    }
     int countPairs(TreeNode* root, int distance) {
-        if (!root) return 0;
-        storeLeaves(root);
-        for (int i = 0; i < leaves.size(); i++)
-            bfs(leaves[i], distance);
-        return ans/2;
+        dfs(root, distance);
+        return pairs;
     }
 };
