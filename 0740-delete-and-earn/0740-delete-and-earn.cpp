@@ -1,19 +1,23 @@
 class Solution {
 public:
-    int rec(int idx, vector<int> &dp, vector<int> &res)
+    int rec(int idx, vector<int> &dp, vector<int> &nums)
     {
-        if(idx >= 10001) return 0;
-        if(res[idx] != -1) return res[idx];
-        int take = idx*dp[idx] + rec(idx+2, dp, res);
-        int nottake = rec(idx+1, dp, res);
-        return res[idx] = max(take, nottake);
+        if(idx >= nums.size()) return 0;
+        if(dp[idx] != -1) return dp[idx];
+        int currsum = nums[idx];
+        int ptr = idx+1;
+        while(ptr<nums.size() and nums[ptr] == nums[idx])
+        {
+            currsum += nums[ptr];
+            ptr++;
+        }
+        while(ptr<nums.size() and nums[ptr] == nums[idx]+1) 
+            ptr++;
+        return dp[idx] = max(currsum + rec(ptr, dp, nums), rec(idx+1, dp, nums));
     }
     int deleteAndEarn(vector<int>& nums) {
-        // sort(nums.begin(), nums.end());
-        vector<int>dp(10001, 0);
-        vector<int>res(10001, -1);
-        for(auto it:nums)
-            dp[it]++;
-        return rec(0, dp, res);
+        sort(nums.begin(), nums.end());
+        vector<int>dp(20001, -1);
+        return rec(0, dp, nums);
     }
 };
