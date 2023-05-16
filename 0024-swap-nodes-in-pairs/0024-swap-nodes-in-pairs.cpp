@@ -18,11 +18,10 @@ public:
         ListNode *curr = head;
         while(curr and curr->next)
         {
-            ListNode *next = curr->next;
-            curr->next = next->next;
-            next->next = curr;
-            prev->next = next;
-            prev = next->next;
+            prev->next = curr->next;
+            curr->next = curr->next->next;
+            prev->next->next = curr;
+            prev = curr;
             curr = curr->next;
         }
         return dummy->next;
