@@ -8,7 +8,7 @@ public:
         {
             if(mp.find(cards[i]) != mp.end())
                 mini = min(mini, i - mp[cards[i]]);
-            mp[cards[i]] = i;
+            mp[cards[i]] = i; //updating to the latest index to get mini
         }
         return mini == 1e9?-1:mini+1;
     }
