@@ -12,6 +12,7 @@ class Solution {
 public:
     int pairSum(ListNode* head) {
         ListNode* slow  = head, *fast = head;
+        //reverse second half and check sum now from mid and beginning
         while(fast and fast->next)
         {
             slow = slow->next;
