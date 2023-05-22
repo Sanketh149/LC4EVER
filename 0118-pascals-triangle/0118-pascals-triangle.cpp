@@ -17,8 +17,7 @@ public:
         vector<vector<int>>res;
         for(int row = 1;row<=numRows;row++)
         {
-            vector<int>currRow = generateRow(row);
-            res.push_back(currRow);
+            res.push_back(generateRow(row));
         }
         return res;
     }
