@@ -9,6 +9,7 @@ public:
             if(i>0 and nums[i] == nums[i-1]) continue; //duplicates for i
             for(int j = i + 1;j<n;j++)
             {
+                if(j != i+1 and nums[j] == nums[j-1]) continue;
                 int k = j+1, l = n-1;
                 while(k<l)
                 {
@@ -24,7 +25,6 @@ public:
                         while(k<l and nums[l] == curr2) l--; //duplicates for l
                     }
                 }
-                while(j+1<n and nums[j] == nums[j+1]) j++;
             }
         }
         return res;
