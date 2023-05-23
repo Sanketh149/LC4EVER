@@ -4,11 +4,11 @@ public:
     int merge(vector<LL> &nums, int low, int mid, int high, int lower, int upper)
     {
         LL count = 0;
-        int start = mid+1, end = mid+1;
+        // int start = mid+1, end = mid+1;
         for(int i = low;i<=mid;i++)
         {
-            while(start<=high and nums[start] - nums[i] < lower) start++; //lower-bound
-            while(end<=high and nums[end] - nums[i] <= upper) end++; //upper-bound
+            auto start = lower_bound(nums.begin()+mid+1, nums.begin()+high+1, nums[i]+lower); //lower-bound
+            auto end = upper_bound(nums.begin()+mid+1, nums.begin()+high+1, nums[i]+upper); //upper-bound
             count += (end - start);
         }
         vector<LL>temp;
