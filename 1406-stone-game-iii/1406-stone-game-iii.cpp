@@ -14,7 +14,7 @@ public:
        
     }
     string stoneGameIII(vector<int>& stoneValue) {
-        dp.resize(stoneValue.size()+1, -1);
+        dp.resize(stoneValue.size(), -1);
         int res = rec(0, stoneValue);
         if(res > 0) return "Alice";
         else if(0 > res) return "Bob";
