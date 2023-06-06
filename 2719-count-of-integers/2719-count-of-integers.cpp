@@ -12,8 +12,7 @@ int G(string number, int mini, int maxi, ll pos = 0, ll sum = 0, ll tight = 1)
 {
 	if(pos == number.size()) 
 	{
-		if(check(sum, mini, maxi)) return 1;
-        return 0;
+		return check(sum, mini, maxi);
 	}
 	else if(dp[pos][sum][tight] != -1) return dp[pos][sum][tight];
 	else if(tight == 1)
