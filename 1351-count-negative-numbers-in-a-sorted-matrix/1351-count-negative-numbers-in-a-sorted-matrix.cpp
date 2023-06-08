@@ -10,7 +10,6 @@ public:
             if(grid[row][col]>=0)
             {
                 col++;
-                continue;
             }
             else {
                 cnt += (n - col);
