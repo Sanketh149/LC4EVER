@@ -14,10 +14,8 @@ public:
         {
             auto [diff, i] = pq.top();
             pq.pop();
-            classes[i][0] += 1;
-            classes[i][1] += 1;
-            int val1 = classes[i][0];
-            int val2 = classes[i][1];
+            int val1 = ++classes[i][0];
+            int val2 = ++classes[i][1];
             double newdiff = (double)(val1+1)/(val2+1) - (double)(val1)/(val2);
             pq.push({newdiff,i});
         }
