@@ -20,7 +20,7 @@ public:
     }
     
     int get(int index, int snap_id) {
-        auto it = v[index].upper_bound(snap_id);
+        auto it = v[index].upper_bound(snap_id); //to find the last value - 1 entry
         return (--it)->second;
     }
 };
