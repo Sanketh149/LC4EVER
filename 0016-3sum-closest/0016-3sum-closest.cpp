@@ -23,7 +23,7 @@ public:
                     mini = 0;
                     int curr1 = nums[j], curr2 = nums[k];
                     while(j<k and nums[j] == curr1) j++;
-                    while(j<k and nums[j] == curr2) k--;
+                    while(j<k and nums[k] == curr2) k--;
                 }
             }
         }
