@@ -7,8 +7,8 @@ public:
         while(right<n)
         {
             res[s[right] - 'A']++;
-            int maxFrequent = *max_element(res.begin(), res.end());
-            // cout<<maxFrequent<<endl;
+            int maxFrequent = *max_element(res.begin(), res.end()); 
+            //replacing a in babb is better than replacing b {O(26) only}
             while((right - left + 1) - maxFrequent > k)
             {
                 res[s[left] - 'A']--;
