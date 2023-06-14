@@ -11,11 +11,11 @@ public:
             len++;
             while(mp.size() > 2)
             {
-                int leftFruit = fruits[l];
-                mp[leftFruit]--;
+                mp[fruits[l]]--;
+                if(mp[fruits[l]] == 0) 
+                    mp.erase(fruits[l]);
                 len--;
                 l++;
-                if(mp[leftFruit] == 0) mp.erase(leftFruit);
             }
             maxi = max(maxi, len);
         }
