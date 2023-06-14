@@ -9,7 +9,7 @@ public:
             res[s[right] - 'A']++;
             maxFrequent = max(maxFrequent, res[s[right] - 'A']);
             //replacing a in babb is better than replacing b {O(1) only}
-            while((right - left + 1) - maxFrequent > k)
+            if((right - left + 1) - maxFrequent > k)
             {
                 res[s[left] - 'A']--;
                 left++;
