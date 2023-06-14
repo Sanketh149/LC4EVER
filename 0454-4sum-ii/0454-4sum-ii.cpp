@@ -6,7 +6,8 @@ public:
             for(auto it2:nums2)
                 mp[it1+it2]++;
         int count = 0;
-        for(auto it3:nums3) //key observation is that one element should be picked from all 4..
+        //key observation is that one element should be picked from all 4..
+        for(auto it3:nums3) 
             for(auto it4:nums4)
                 count += mp[-(it3+it4)];
         return count;
