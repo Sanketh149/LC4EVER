@@ -1,29 +1,28 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int n = nums.size(), idx = -1;
+        int breakPt = -1, n = nums.size();
         for(int i = n-2;i>=0;i--)
         {
-            if(nums[i] < nums[i+1]) 
+            if(nums[i] < nums[i+1])
             {
-                idx = i;
+                breakPt = i;
                 break;
             }
         }
-        if(idx == -1)
-            sort(nums.begin(), nums.end());
-        else
+        if(breakPt == -1) 
         {
-            int curr = nums[idx];
-            for(int i = n-1;i>idx;i--)
-            {
-                if(nums[i] > curr)
-                {
-                    swap(nums[i], nums[idx]);
-                    break;
-                }
-            }
-            sort(nums.begin()+idx+1, nums.end());
+            reverse(nums.begin(), nums.end());
+            return;
         }
+        for(int i = n-1;i>=0;i--)
+        {
+            if(nums[breakPt] < nums[i])
+            {
+                swap(nums[breakPt], nums[i]);
+                break;
+            }
+        }
+        reverse(nums.begin()+breakPt+1, nums.end());
     }
 };
