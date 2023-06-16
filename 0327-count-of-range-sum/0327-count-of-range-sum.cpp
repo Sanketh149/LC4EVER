@@ -4,11 +4,10 @@ public:
     int merge(vector<LL> &nums, int low, int mid, int high, int lower, int upper)
     {
         LL count = 0;
-        // int start = mid+1, end = mid+1;
         for(int i = low;i<=mid;i++)
         {
-            auto start = lower_bound(nums.begin()+mid+1, nums.begin()+high+1, nums[i]+lower); //lower-bound
-            auto end = upper_bound(nums.begin()+mid+1, nums.begin()+high+1, nums[i]+upper); //upper-bound
+            auto start = lower_bound(nums.begin()+mid+1, nums.begin()+high+1, nums[i]+lower) - nums.begin();
+            auto end = upper_bound(nums.begin()+mid+1, nums.begin()+high+1, nums[i]+upper) - nums.begin();
             count += (end - start);
         }
         vector<LL>temp;
@@ -31,8 +30,8 @@ public:
     }
     int mergeSort(vector<LL> &nums, int low, int high, int lower, int upper)
     {
-        if(low >= high) return 0;
         int count = 0;
+        if(low >= high) return count;
         int mid = (low + high)/2;
         count += mergeSort(nums, low, mid, lower, upper);
         count += mergeSort(nums , mid+1, high, lower, upper);
@@ -44,6 +43,6 @@ public:
         vector<LL>prefix(n+1, 0);
         for(int i = 0;i<n;i++)
             prefix[i+1] = prefix[i]+nums[i];
-        return mergeSort(prefix, 0, n, lower, upper);
+        return mergeSort(prefix, 0, prefix.size()-1, lower, upper);
     }
 };
