@@ -1,12 +1,18 @@
 class Solution {
 public:
-    int maxFrequency(vector<int>& A, int k) {
-        sort(begin(A), end(A));
-        long long int i = 0, N = A.size(), ans = 1, sum = 0;
-        for (int j = 0; j < N; ++j) {
-            sum += A[j];
-            while ((j - i + 1) * A[j] - sum > k) sum -= A[i++];
-            ans = max(ans, j - i + 1);
+    int maxFrequency(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        long long int l = 0, r = 0, ans = -1e9, n = nums.size(), sum = 0;
+        while(r<n)
+        {
+            sum += nums[r];
+            while((r-l+1)*nums[r] - sum> k) //size*nums[i] > k (invalid window)
+            {
+                sum -= nums[l];
+                l++;
+            }
+            ans = max(ans, r-l+1);
+            r++;
         }
         return ans;
     }
