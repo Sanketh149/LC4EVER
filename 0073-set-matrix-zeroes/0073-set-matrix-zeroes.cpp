@@ -1,7 +1,7 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-         bool firstrow = false, firstcol = false;
+        bool firstrow = false, firstcol = false;
         int m = matrix.size(),n = matrix[0].size();
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
@@ -17,11 +17,11 @@ public:
                 if(matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
             }
         }
-        if(firstcol){
-            for(int i = 0; i < m; i++) matrix[i][0] = 0;
-        }
         if(firstrow){
             for(int j = 0; j < n; j++) matrix[0][j] = 0;
+        }
+        if(firstcol){
+            for(int i = 0; i < m; i++) matrix[i][0] = 0;
         }
     }
 };
