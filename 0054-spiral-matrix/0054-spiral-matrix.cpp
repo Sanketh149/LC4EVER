@@ -2,9 +2,9 @@ class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         int m = matrix.size(), n = matrix[0].size();
-        int rs = 0, re = m-1, cs = 0, ce = n-1;
+        int rs = 0, re = m-1, cs =  0, ce = n - 1;
         vector<int>res;
-        while(rs <= re and cs <= ce)
+        while(rs<=re and cs<=ce)
         {
             for(int i = cs;i<=ce;i++) res.push_back(matrix[rs][i]);
             rs++;
