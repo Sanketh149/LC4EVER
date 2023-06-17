@@ -10,14 +10,12 @@ public:
         {
             if(st.size() == 1 and i!=n-1 and s[i] == ')')
             {
-                cout<<i<<endl;
                 st.pop();
                 st.push(s[i+1]);
                 i++;
             }
             else
             {
-                // cout<<i<<endl;
                 if(s[i] == '(') st.push(s[i]);
                 else if(s[i] == ')') st.pop();
                 ans += s[i];
