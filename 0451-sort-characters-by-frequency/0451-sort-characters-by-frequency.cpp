@@ -19,10 +19,7 @@ public:
         {
             char x = it.second;
             int freq = it.first;
-            while(freq--)
-            {
-                res += x;
-            }
+            res.append(freq, x);
         }
         return res;
     }
