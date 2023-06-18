@@ -1,37 +1,43 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        string res;
-        int n = s.size(), beg = -1, maxlen = -1e9;
-        string temp = s;
-        reverse(temp.begin(), temp.end());
-        if(temp == s) return s;
-        for(int i = 0;i<n;i++)
+        int n = s.size();
+        int len = 2*n+1;
+        vector<char>res(len, '#');
+        int i = 1, p = 0;
+        while(i<(len))
         {
-            int l = i,r = i;
-            while(l>=0 and r<n and s[l] == s[r])
+            res[i] =  s[p++];
+            i += 2;
+        }
+        vector<int>lps(len, 0);
+        int maxlen = 0, maxcenter = 0, right = 0, center = 0;
+        for(int i = 0;i<len;i++)
+        {
+            int mirror = 2*center - i;
+            if(right > i)
             {
-                if(maxlen < (r-l+1))
-                {
-                    maxlen = r-l+1;
-                    beg = l;
-                }
-                l--;
-                r++;
+                lps[i] = min(lps[mirror], right - i); //to stay in bounds
             }
-            
-            l = i, r = i+1;
-            while(l>=0 and r<n and s[l] == s[r])
+            int b = i+lps[i]+1, a = i - lps[i] - 1;
+            while(a >=0 and b<len and res[a] == res[b])
             {
-                if(maxlen < (r-l+1))
-                {
-                    maxlen = r-l+1;
-                    beg = l;
-                }
-                l--;
-                r++;
+                a--;
+                b++;
+                lps[i]++;
+            }
+            if(lps[i] > maxlen)
+            {
+                maxlen = lps[i];
+                maxcenter = i;
+            }
+            if(i+lps[i] > right)
+            {
+                center = i;
+                right = i+lps[i];
             }
         }
-        return s.substr(beg, maxlen);
+        maxlen = max_element(lps.begin(), lps.end()) - (lps.begin());
+        return s.substr((maxlen - lps[maxlen])/2, lps[maxlen]);
     }
 };
