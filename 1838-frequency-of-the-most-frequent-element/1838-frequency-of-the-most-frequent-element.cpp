@@ -6,7 +6,7 @@ public:
         while(r<n)
         {
             sum += nums[r];
-            while((r-l+1)*nums[r] - sum> k) //size*nums[i] > k (invalid window)
+            while((r-l+1)*nums[r] - sum> k) //size*nums[i] - sum> k (invalid window)
             {
                 sum -= nums[l];
                 l++;
