@@ -4,20 +4,18 @@ public:
         int n = fruits.size();
         if(n<=2) return n;
         unordered_map<int,int>mp;
-        int l = 0, maxi = 0, len = 0;
+        int l = 0, maxi = 0;
         for(int r=0;r<n;r++)
         {
             mp[fruits[r]]++;
-            len++;
             while(mp.size() > 2)
             {
                 mp[fruits[l]]--;
                 if(mp[fruits[l]] == 0) 
                     mp.erase(fruits[l]);
-                len--;
                 l++;
             }
-            maxi = max(maxi, len);
+            maxi = max(maxi, r-l+1);
         }
         return maxi;
     }
