@@ -1,20 +1,25 @@
 class Solution {
 public:
     vector<int> getAverages(vector<int>& nums, int k) {
-        int n = nums.size();
-        if(k == 0) return nums;
-        vector<int>avg(n, -1);
-        if(2*k+1 > n) return avg;
-        int divi = 2*k+1;
-        long long curr = 0;
-        for(int i = 0;i<2*k+1;i++)
-            curr += nums[i];
-        avg[k] = curr/divi;
-        for(int i = 2*k+1;i<n;i++)
-        {
-            curr = curr - nums[i - (2*k+1)] + nums[i];
-            avg[i - k] = (curr/divi);
+        if (k == 0) {
+            return nums;
         }
-        return avg;
+        int n = nums.size();
+        vector<int> averages(n, -1);
+        if (2 * k + 1 > n) {
+            return averages;
+        }
+        vector<long long> prefix(n + 1);
+        for (int i = 0; i < n; ++i) {
+            prefix[i + 1] = prefix[i] + nums[i];
+        }
+        for (int i = k; i < (n - k); ++i) {
+            int leftBound = i - k, rightBound = i + k;
+            long long subArraySum = prefix[rightBound + 1] - prefix[leftBound];
+            int average = subArraySum / (2 * k + 1);
+            averages[i] = average;
+        }
+
+        return averages;
     }
 };
