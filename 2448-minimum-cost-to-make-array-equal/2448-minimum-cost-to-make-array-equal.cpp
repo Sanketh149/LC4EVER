@@ -1,12 +1,12 @@
 using ll = long long int;
 class Solution {
 public:
-    ll rec(vector<int> &nums, vector<int> &cost, int median)
+    ll rec(vector<pair<int,int>> &v, int median)
     {
         ll sum = 0;
-        for(int i = 0;i<cost.size();i++)
+        for(int i = 0;i<v.size();i++)
         {
-            sum += 1L*abs(nums[i] - median) * cost[i];
+            sum += 1L*abs(v[i].first - median) * v[i].second;
         }
         return sum;
     }
@@ -27,6 +27,6 @@ public:
             median = v[i].first;
             i++;
         }
-        return rec(nums, cost, median);
+        return rec(v, median);
     }
 };
