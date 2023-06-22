@@ -1,32 +1,28 @@
 using ll = long long int;
 class Solution {
 public:
-    ll rec(vector<pair<int,int>> &v, int median)
+    ll rec(vector<int> &nums, vector<int> &cost, int median)
     {
         ll sum = 0;
-        for(int i = 0;i<v.size();i++)
+        for(int i = 0;i<cost.size();i++)
         {
-            sum += 1L*abs(v[i].first - median) * v[i].second;
+            sum += 1L*abs(nums[i] - median) * cost[i];
         }
         return sum;
     }
     long long minCost(vector<int>& nums, vector<int>& cost) {
         ll n = nums.size(), sum = 0;
-        ll median = 0, total = 0;
-        vector<pair<int,int>>v;
-        for(int i = 0;i<n;i++)
-            v.push_back({nums[i], cost[i]});
-        
-        sort(v.begin(), v.end());
-        for(int i = 0;i<n;i++)
-            sum += v[i].second;
-        int i = 0;
-        while(i<n and total<(sum+1)/2)
+        ll median = 0, res = rec(nums, cost, 1);
+        ll l = 0, r = 1e6;
+        while(l<r)
         {
-            total += v[i].second;
-            median = v[i].first;
-            i++;
+            ll mid = (l+(r-l)/2);
+            ll y1 = rec(nums, cost, mid), y2 = rec(nums, cost, mid+1);
+            res = min(y1, y2);
+            if(y1<y2)
+                r = mid;
+            else l = mid+1;
         }
-        return rec(v, median);
+        return res;
     }
 };
