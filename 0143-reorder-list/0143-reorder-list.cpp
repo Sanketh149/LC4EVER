@@ -25,7 +25,7 @@ public:
     ListNode *getMid(ListNode *head)
     {
         ListNode *slow = head, *fast = head;
-        while(fast and fast->next)
+        while(fast->next and fast->next->next)
         {
             slow = slow->next;
             fast = fast->next->next;
@@ -35,23 +35,16 @@ public:
     void reorderList(ListNode* head) {
         if(!head or !head->next) return;
         ListNode *mid = getMid(head);
-        ListNode *rev = reverseList(mid);
-        ListNode *left = head->next;
-        int i = 0;
-        while(left != rev)
+        ListNode *rev = reverseList(mid->next);
+        mid->next = NULL;
+        ListNode *first = head;
+        while(rev)
         {
-            if(i & 1)
-            {
-                head->next = left;
-                left = left->next;
-            }
-            else
-            {
-                head->next = rev;
-                rev = rev->next;
-            }
-            i++;
-            head = head->next;
+            ListNode *fn = first->next, *rn = rev->next;
+            first->next = rev;
+            rev->next = fn;
+            first = fn;
+            rev = rn;
         }
     }
 };
