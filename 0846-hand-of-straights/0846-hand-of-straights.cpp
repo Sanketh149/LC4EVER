@@ -8,7 +8,7 @@ public:
         for (auto &card : hand)
             m[card]++;
         
-        while (m.size()!= 0) {
+        while (m.size()) {
             int cur = m.begin()->first;
             for (int i = 0; i < W; i++) {
                 if (m[cur+i] == 0)
