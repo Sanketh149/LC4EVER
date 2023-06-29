@@ -33,7 +33,7 @@ class Solution
             int val = pq.top()[0], arrNum = pq.top()[1], idx = pq.top()[2];
             pq.pop();
             res.push_back(val);
-            if(idx<k-1)
+            if(idx+1<k)
             {
                 pq.push({nums[arrNum][idx+1], arrNum, idx+1});
             }
