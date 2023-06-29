@@ -55,10 +55,9 @@ void insert(int p) {
 class Solution {
   public:
     int extractMax() {
-        int ans = H[0], last = H[s];
-        H[0] = H[s--];
+        swap(H[0], H[s--]);
         shiftDown(0);
-        return ans;
+        return H[s+1];
     }
 };
 
