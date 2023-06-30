@@ -14,6 +14,7 @@ public:
                 if(k-->0) res.push_back(it);
                 else break;
             }
+            if(k<=0) break;
         }
         return res;
     }
