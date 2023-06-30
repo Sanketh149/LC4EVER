@@ -15,20 +15,19 @@ public:
     vector<int> getNewsFeed(int userId) {
         priority_queue<pair<int,int>>pq;
         vector<int>res;
-        for(auto it = tweets[userId].begin();it != tweets[userId].end();it++)
-            pq.push(*it);
-        for(auto it = followers[userId].begin(); it != followers[userId].end();it++)
-        {
-            int user = *it;
-            for(auto it2 = tweets[user].begin();it2!=tweets[user].end();it2++)
-                pq.push(*it2);
+        for(auto tweet : tweets[userId]){
+            pq.push(tweet);
         }
-        while(pq.size())
+        for(auto followee : followers[userId]){
+            for(auto tweet: tweets[followee]){
+                pq.push(tweet);
+            }
+        }
+        int n = min(10, (int)pq.size());
+        for(int i = 0;i<n;i++)
         {
             res.push_back({pq.top().second});
             pq.pop();
-            if(res.size() == 10)
-                return res;
         }
         return res;
     }
