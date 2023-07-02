@@ -8,9 +8,15 @@ public:
         while(p1<n1 and p2<n2)
         {
             if(s[p2] >= g[p1])
+            {
+                cnt++;
+                p2++;
                 p1++;
-            p2++;
+            }
+            else{
+                p2++;
+            }
         }
-        return p1;
+        return cnt;
     }
 };
