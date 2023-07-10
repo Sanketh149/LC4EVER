@@ -6,15 +6,19 @@ public:
         while(low<=high)
         {
             int mid = low+(high-low)/2;
-            ans = min(ans, nums[mid]);
-            if(nums[low] < nums[mid])
+            if(nums[low] <= nums[high]) //whole search space is already sorted
+            {
+                ans = min(ans, nums[low]);
+                break;
+            }
+            if(nums[low] <= nums[mid])
             {
                 ans = min(ans, nums[low]);
                 low = mid + 1;
             }
             else 
             {
-                ans = min(ans, nums[high]);
+                ans = min(ans, nums[mid]);
                 high = mid-1;
             }
         }
