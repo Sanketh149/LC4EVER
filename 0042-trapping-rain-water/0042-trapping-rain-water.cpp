@@ -8,12 +8,12 @@ public:
         {
             if(height[l]<=height[r])
             {
-                if(leftMax<=height[l]) leftMax = height[l];
+                if(leftMax<height[l]) leftMax = height[l];
                 else vol += (leftMax - height[l]);
                 l++;
             }
             else{
-                if(rightMax <= height[r]) rightMax = height[r];
+                if(rightMax < height[r]) rightMax = height[r];
                 else vol += (rightMax - height[r]);
                 r--;
             }
