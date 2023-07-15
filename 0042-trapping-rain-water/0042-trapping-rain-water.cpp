@@ -6,15 +6,15 @@ public:
         int l = 0, r = n-1, leftMax = 0, rightMax = 0;
         while(l<=r)
         {
-            if(height[l]<=height[r])
+            if(height[l] <= height[r])
             {
-                if(leftMax<height[l]) leftMax = height[l];
-                else vol += (leftMax - height[l]);
+                leftMax = max(leftMax, height[l]);
+                vol += (leftMax - height[l]);
                 l++;
             }
             else{
-                if(rightMax < height[r]) rightMax = height[r];
-                else vol += (rightMax - height[r]);
+                rightMax = max(rightMax, height[r]);
+                vol += (rightMax - height[r]);
                 r--;
             }
         }
