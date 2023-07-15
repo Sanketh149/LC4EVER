@@ -8,11 +8,10 @@ public:
     }
     
     int get(int key) {
-        if(address.find(key) == address.end()) return -1;
-        else{
-            lru.splice(lru.begin(), lru, address[key]);
-            return address[key]->second;
-        }
+        auto curr = address.find(key);
+        if(curr == address.end()) return -1;
+        lru.splice(lru.begin(), lru, address[key]);
+        return address[key]->second;
     }
     
     void put(int key, int value) {
@@ -22,10 +21,11 @@ public:
             address[key]->second = value;
             return;
         }
-        if(cap == address.size()){
-            auto lru_key = lru.back().first;
+        if(address.size() == cap)
+        {
+            int todel = lru.back().first;
             lru.pop_back();
-            address.erase(lru_key);
+            address.erase(todel);
         }
         lru.push_front({key, value});
         address[key] = lru.begin();
