@@ -8,18 +8,22 @@ public:
     }
     
     int get(int key) {
-        auto curr = address.find(key);
-        if(curr == address.end()) return -1;
-        lru.splice(lru.begin(), lru, address[key]);
-        return address[key]->second;
+        if(address.find(key) == address.end()) return -1;
+        auto curr = address[key];
+        int val = curr->second;
+        address.erase(key);
+        lru.erase(curr);
+        lru.push_front({key, val});
+        address[key] = lru.begin();
+        return val;
     }
     
     void put(int key, int value) {
         if(address.find(key) != address.end())
         {
-            lru.splice(lru.begin(), lru, address[key]);
-            address[key]->second = value;
-            return;
+            auto curr = address[key];
+            address.erase(key);
+            lru.erase(curr);
         }
         if(address.size() == cap)
         {
@@ -31,10 +35,3 @@ public:
         address[key] = lru.begin();
     }
 };
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
